@@ -1,37 +1,49 @@
-body{
-  font-family: Arial;
-  background-color: #f4f4f4;
-  padding: 30px;
-  color: 333;
+:root {
+  --color-primary: #0a1763;
+  --color-secondary: #e7e4e4;
+  --color-white: #ffffff;
+  --color-dark-text: #333;
+  --color-light-bg: #f5f5f5;
+  --color-border: #555;
+  --color-completed: #5cb85c;
+  --color-remove: #d9534f;
+  --color-input-border: #d1cdcd;
 }
 
-.app{
+body {
+  font-family: Arial;
+  background-color: var(--color-primary);
+  padding: 30px;
+  color: var(--color-dark-text);
+}
+
+.app {
   max-width: 600px;
   margin: 0 auto 300px;
-  background-color: #efefef;
+  background-color: var(--color-secondary);
   padding: 20px;
   border-radius: 10px;
 }
 
-h1{
-  text-align:  center;
+h1 {
+  text-align: center;
 }
 
-h2{
+h2 {
   margin-bottom: 10px;
 }
 
-p{
+p {
   margin: 10px 0;
 }
 
-input{
+input {
   box-sizing: border-box;
 }
 
-button{
-  background-color: #1c2fdd;
-  color: #fff;
+button {
+  background-color: var(--color-primary);
+  color: var(--color-light-bg);
   padding: 5px 10px;
   border: none;
   border-radius: 3px;
@@ -39,20 +51,21 @@ button{
   opacity: 0.8;
   transition: 0.3s;
   margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-button:hover{
+button:hover {
   opacity: 1;
 }
 
-.todo-list{
+.todo-list {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #555;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.todo{
-  background-color: #fff;
+.todo {
+  background-color: var(--color-light-bg);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   margin-bottom: 10px;
@@ -61,39 +74,44 @@ button:hover{
   justify-content: space-between;
   align-items: center;
 }
-.completed{
-  background-color: #5cb85c;
+
+.completed {
+  background-color: var(--color-completed);
 }
 
-.remove{
-  background-color: #d9534f;
+.remove {
+  background-color: var(--color-remove);
+}
+.editar{
+  background-color: rgb(216, 158, 49);
+
 }
 
-todo-Form{
+todo-Form {
   padding-bottom: 1.5rem;
 }
 
-input, select{
+input, select {
+  background-color: var(--color-light-bg);
   padding: 5px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-input-border);
   border-radius: 3px;
   width: 100%;
 }
 
-.filter,.search{
-  border-radius: 1px solid #555;
+.filter, .search {
+  border-radius: 1px solid var(--color-border);
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
 
-.filter-options{
+.filter-options {
   display: flex;
   justify-content: space-between;
   gap: 3rem;
 }
 
-.filter-optoins div{
+.filter-optoins div {
   flex: 1 1 0;
-
 }

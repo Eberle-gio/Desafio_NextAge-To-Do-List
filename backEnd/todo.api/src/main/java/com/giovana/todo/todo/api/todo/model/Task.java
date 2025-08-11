@@ -31,10 +31,10 @@ public class Task {
     @Column(nullable = false, updatable = false, name = "creation date")
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, name = "update date")
+    @Column(nullable = true, name = "update date")
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false, name = "completed date")
+    @Column(nullable = true, name = "completed date")
     private LocalDateTime completedAt;
 
     @PrePersist
@@ -84,12 +84,12 @@ public class Task {
         this.title = title;
     }
 
-    public String getDscription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDscription(String dscription) {
-        this.description = dscription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isCompleted() {

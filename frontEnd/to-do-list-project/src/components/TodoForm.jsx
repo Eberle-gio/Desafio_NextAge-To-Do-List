@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ addTodo, onClose }) => {
   const [value, setValue] = useState("");
   const [category, setCategory] = useState("");
 
@@ -11,6 +11,7 @@ const TodoForm = ({ addTodo }) => {
     setValue("");
     setCategory("");
     console.log(value, category);
+    onClose();
   };
   return (
     <div className="todo-form">
@@ -29,6 +30,9 @@ const TodoForm = ({ addTodo }) => {
           <option value="Estudos">Estudos</option>
         </select>
         <button type="submit">Criar</button>
+        <button type="button" onClick={onClose}>
+          Cancelar
+        </button>
       </form>
     </div>
   );

@@ -5,6 +5,7 @@ import TodoForm from "./components/TodoForm.jsx";
 import Todos from "./components/Todos.jsx";
 
 import "./App.css";
+import Modal from "./components/modal/Modal.jsx";
 
 function App() {
   const [todos, setTodos] = useState([
@@ -28,10 +29,21 @@ function App() {
     },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc");
   const [filterCategory, setFilterCategory] = useState("All");
+  const [showFilter, setShowFilter] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const addTodo = (text, category) => {
     const newTodo = [
@@ -64,14 +76,32 @@ function App() {
   return (
     <div className="app">
       <h1>Lista de Tarefas</h1>
-      <Search search={search} setSearch={setSearch} />
-      <Filter
-        filter={filter}
-        setFilter={setFilter}
-        setSort={setSort}
-        filterCategory={filterCategory}
-        setFilterCategory={setFilterCategory}
-      />
+      <div>
+        <button
+          className="filter-button"
+          onClick={() => setShowFilter((prev) => !prev)}
+        >
+          🔃
+        </button>
+
+        <button
+          className="Search-button"
+          onClick={() => setShowSearch((prev) => !prev)}
+        >
+          🔍
+        </button>
+      </div>
+      {showSearch && <Search search={search} setSearch={setSearch} />}
+      {showFilter && (
+        <Filter
+          filter={filter}
+          setFilter={setFilter}
+          sort={sort}
+          setSort={setSort}
+          filterCategory={filterCategory}
+          setFilterCategory={setFilterCategory}
+        />
+      )}
       <div className="todo-list">
         {todos
           .filter((todo) =>
@@ -103,7 +133,12 @@ function App() {
             />
           ))}
       </div>
-      <TodoForm addTodo={addTodo} />
+      <button onClick={openModal}>+</button>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <TodoForm addTodo={addTodo} onClose={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 }

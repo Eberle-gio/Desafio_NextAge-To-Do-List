@@ -1,12 +1,10 @@
-import React from "react";
-
 export const Todos = ({ todo, removeTodo, completeTodo }) => {
   return (
     <div
       className="todo"
       style={{
         textDecoration: todo.isCompleted ? "line-through" : "",
-        backgroundColor: todo.isCompleted ? "#ecececff" : "#fff",
+        backgroundColor: todo.isCompleted ? "#d1d1d1" : "",
       }}
     >
       <div className="content">
@@ -20,6 +18,7 @@ export const Todos = ({ todo, removeTodo, completeTodo }) => {
         <button className="remove" onClick={() => removeTodo(todo.id)}>
           excluir
         </button>
+        <button className="editar">Editar</button>
       </div>
     </div>
   );
