@@ -8,8 +8,8 @@ export const Todos = ({ todo, removeTodo, completeTodo }) => {
       }}
     >
       <div className="content">
-        <p>{todo.text}</p>
-        <p className="category">({todo.category})</p>
+        <p>{todo.title}</p>
+        <p className="category">({todo.description})</p>
       </div>
       <div>
         <button className="completed" onClick={() => completeTodo(todo.id)}>

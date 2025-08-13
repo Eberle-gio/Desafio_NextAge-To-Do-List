@@ -1,6 +1,6 @@
 package com.giovana.todo.todo.api.todo.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,27 +29,27 @@ public class Task {
     private boolean completed;
 
     @Column(nullable = false, updatable = false, name = "creation date")
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(nullable = true, name = "update date")
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
     @Column(nullable = true, name = "completed date")
-    private LocalDateTime completedAt;
+    private LocalDate completedAt;
 
     @PrePersist
     protected void createTask() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
     }
 
     @PreUpdate
     protected void updateTask() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDate.now();
 
         // Define a data de conclusão se foi marcado como concluído e ainda não tinha
         // data
         if (this.completed && this.completedAt == null) {
-            this.completedAt = LocalDateTime.now();
+            this.completedAt = LocalDate.now();
         }
 
         // Limpa a data se o usuário desmarcar a conclusão
@@ -100,27 +100,27 @@ public class Task {
         this.completed = completed;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getCompletedAt() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 
-    public void setCompletedAt(LocalDateTime completedAt) {
+    public void setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
     }
 

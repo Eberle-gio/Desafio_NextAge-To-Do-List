@@ -1,9 +1,8 @@
 package com.giovana.todo.todo.api.todo.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,6 @@ import com.giovana.todo.todo.api.todo.repository.TaskRepository;
 
 @RestController
 @RequestMapping("/api/todos")
-@CrossOrigin(origins = "*") // Permite acesso do front-end
 public class TodoController {
 
     private final TaskRepository TaskRepository;
@@ -47,9 +45,9 @@ public class TodoController {
                     task.setTitle(updatedTask.getTitle());
                     task.setDescription(updatedTask.getDescription());
                     task.setCompleted(updatedTask.isCompleted());
-                    task.setUpdatedAt(LocalDateTime.now());
+                    task.setUpdatedAt(LocalDate.now());
                     if (updatedTask.isCompleted()) {
-                        task.setCompletedAt(LocalDateTime.now());
+                        task.setCompletedAt(LocalDate.now());
                     } else {
                         task.setCompletedAt(null);
                     }

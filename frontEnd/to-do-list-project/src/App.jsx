@@ -1,33 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "./App.css";
 import Filter from "./components/Filter.jsx";
 import Search from "./components/Search.jsx";
 import TodoForm from "./components/TodoForm.jsx";
 import Todos from "./components/Todos.jsx";
-
-import "./App.css";
 import Modal from "./components/modal/Modal.jsx";
+import api from "./services/api.js";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "Criar funcionalidade x no sistema",
-      category: "Trabalho",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      text: "Ir para a academia",
-      category: "Pessoal",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      text: "estudar react",
-      category: "Estudos",
-      isCompleted: false,
-    },
-  ]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [sort, setSort] = useState("Asc");
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [showFilter, setShowFilter] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const fectchTodos = async () => {
+    try {
+      const response = await api.get("/api/todos", {
+        auth: {
+          username: "admin",
+          password: "admin",
+        },
+      });
+      setTodos(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar tarefa:", error);
+    }
+  };
+
+  useEffect(() => {
+    fectchTodos();
+  }, []);
+
+  const [todos, setTodos] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -38,12 +44,6 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("All");
-  const [sort, setSort] = useState("Asc");
-  const [filterCategory, setFilterCategory] = useState("All");
-  const [showFilter, setShowFilter] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
 
   const addTodo = (text, category) => {
     const newTodo = [
@@ -112,7 +112,7 @@ function App() {
               : !todo.isCompleted
           )
           .filter((todo) =>
-            todo.text.toLowerCase().includes(search.toLowerCase())
+            todo.title.toLowerCase().includes(search.toLowerCase())
           )
           .sort((a, b) =>
             sort === "Asc"
