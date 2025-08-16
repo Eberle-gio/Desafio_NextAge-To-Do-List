@@ -1,12 +1,16 @@
-package com.giovana.todo.todo.api.todo.model;
+package com.giovana.todo.todo.api.task.model;
 
 import java.time.LocalDate;
+
+import com.giovana.todo.todo.api.category.model.Categoria;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -25,6 +29,10 @@ public class Task {
     @Column(length = 500, nullable = true, unique = true, name = "description")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_Id", nullable = false)
+    private Categoria categoria;
+
     @Column(nullable = false, name = "completed")
     private boolean completed;
 
@@ -36,6 +44,17 @@ public class Task {
 
     @Column(nullable = true, name = "completed date")
     private LocalDate completedAt;
+
+    @Column(nullable = true, updatable = true, name = "expiry date")
+    private LocalDate expiryDate;
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
+    }
 
     @PrePersist
     protected void createTask() {
@@ -62,10 +81,11 @@ public class Task {
 
     }
 
-    public Task(String title, String description, boolean completed) {
+    public Task(String title, String description, boolean completed, Categoria categoria) {
         this.title = title;
         this.description = description;
         this.completed = completed;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -122,6 +142,14 @@ public class Task {
 
     public void setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
 }

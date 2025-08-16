@@ -12,9 +12,10 @@ export const Todos = ({ todo, removeTodo, completeTodo }) => {
         <p className="category">({todo.description})</p>
       </div>
       <div>
-        <button className="completed" onClick={() => completeTodo(todo.id)}>
-          Completar
-        </button>
+        <button
+          className="completed"
+          onClick={() => completeTodo(todo.id)}
+        ></button>
         <button className="remove" onClick={() => removeTodo(todo.id)}>
           excluir
         </button>
