@@ -2,6 +2,7 @@ package com.giovana.todo.todo.api.task.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.giovana.todo.todo.api.category.model.Categoria;
 
 import jakarta.persistence.Column;
@@ -23,10 +24,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false, unique = true, name = "Title")
+    @Column(length = 100, nullable = false, name = "Title")
     private String title;
 
-    @Column(length = 500, nullable = true, unique = true, name = "description")
+    @Column(length = 500, nullable = true, name = "description")
     private String description;
 
     @ManyToOne
@@ -45,6 +46,7 @@ public class Task {
     @Column(nullable = true, name = "completed date")
     private LocalDate completedAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = true, updatable = true, name = "expiry date")
     private LocalDate expiryDate;
 

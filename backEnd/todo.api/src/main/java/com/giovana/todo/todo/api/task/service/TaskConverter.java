@@ -34,6 +34,7 @@ public class TaskConverter {
         task.setDescription(dto.getDescription());
         task.setCompleted(dto.isCompleted());
         task.setCreatedAt(dto.getCreatedAt());
+        task.setExpiryDate(dto.getExpiryDate());
         task.setUpdatedAt(dto.getUpdatedAt());
         task.setCompletedAt(dto.getCompletedAt());
         task.setCategoria(categoria);

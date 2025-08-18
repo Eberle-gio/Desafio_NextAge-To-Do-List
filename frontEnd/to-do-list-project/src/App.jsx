@@ -5,7 +5,7 @@ import Search from "./components/Search.jsx";
 import TodoForm from "./components/TodoForm.jsx";
 import Todos from "./components/Todos.jsx";
 import Modal from "./components/modal/Modal.jsx";
-import api from "./services/api.js";
+import { createTodo, fectchTodos } from "./services/api.js";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -15,22 +15,17 @@ function App() {
   const [showFilter, setShowFilter] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
 
-  const fectchTodos = async () => {
-    try {
-      const response = await api.get("/api/todos", {
-        auth: {
-          username: "admin",
-          password: "admin",
-        },
-      });
-      setTodos(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar tarefa:", error);
-    }
-  };
-
   useEffect(() => {
-    fectchTodos();
+    const fetchData = async () => {
+      try {
+        const data = await fectchTodos();
+        setTodos(data);
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const [todos, setTodos] = useState([]);
@@ -45,24 +40,22 @@ function App() {
     setIsModalOpen(false);
   };
 
-  const addTodo = (text, category) => {
-    const newTodo = [
-      ...todos,
-      {
-        id: Math.floor(Math.random() * 1000),
-        text,
-        category,
-        isCompleted: false,
-      },
-    ];
-    setTodos(newTodo);
+  const addTodo = async (todoData) => {
+    try {
+      const savedTodo = await createTodo(todoData); // chama a API
+      setTodos([...todos, savedTodo]); // adiciona o resultado do backend no estado
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
   };
-  const removeTodo = (id) => {
-    const newTodos = [...todos];
-    const filteresTodos = newTodos.filter((todo) =>
-      todo.id !== id ? todo : null
-    );
-    setTodos(filteresTodos);
+
+  const removeTodo = async (id) => {
+    try {
+      await deleteTodo(id); // remove no backend
+      setTodos(todos.filter((todo) => todo.id !== id)); // atualiza no frontend
+    } catch (error) {
+      console.error("Erro ao deletar todo:", error);
+    }
   };
 
   const completeTodo = (id) => {
@@ -116,8 +109,8 @@ function App() {
           )
           .sort((a, b) =>
             sort === "Asc"
-              ? a.text.localeCompare(b.text)
-              : b.text.localeCompare(a.text)
+              ? a.title.localeCompare(b.title)
+              : b.title.localeCompare(a.title)
           )
 
           .filter((todo) =>
