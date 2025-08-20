@@ -54,12 +54,15 @@ export default function CreateTodo({ addTodo, onClose }) {
           value={categoriaId}
           onChange={(e) => setCategoriaId(Number(e.target.value))}
         >
-          <option value="">Categorias</option>
           <option value={2}>Estudos</option>
           <option value={3}>Lazer</option>
           <option value={1}>Trabalho</option>
         </select>
-        <button type="submit">Criar</button>
+        <div className="button-container">
+          <button className="button-create" type="submit">
+            Criar
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -19,11 +19,13 @@ export const Filter = ({
           </select>
         </div>
         <div>
-          <p>Ordem alfabética</p>
+          <p>Ordenar por:</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="">Selecionar</option>
             <option value="Asc">A-Z</option>
             <option value="Desc">Z-A</option>
+            <option value="createDate">Data de criação</option>
+            <option value="expiryDate">Data de vencimento</option>
           </select>
         </div>
         <div>

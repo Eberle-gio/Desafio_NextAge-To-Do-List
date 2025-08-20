@@ -59,7 +59,7 @@ public class TaskService {
                     }
 
                     return TaskConverter.toDTO(taskRepository.save(task));
-                }).orElseThrow(() -> new RuntimeException("Task não encontrada"));
+                }).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
     }
 
     public void deleteTask(Long id) {

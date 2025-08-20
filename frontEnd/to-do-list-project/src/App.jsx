@@ -6,6 +6,7 @@ import TodoForm from "./components/TodoForm.jsx";
 import Todos from "./components/Todos.jsx";
 import Modal from "./components/modal/Modal.jsx";
 import {
+  completeTodo,
   createTodo,
   deleteTodo,
   fectchTodos,
@@ -63,12 +64,17 @@ function App() {
     }
   };
 
-  const completeTodo = (id) => {
-    const newTodos = [...todos];
-    newTodos.map((todo) =>
-      todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
-    );
-    setTodos(newTodos);
+  const handleComplete = async (todo) => {
+    try {
+      await completeTodo(todo.id, todo); // chama API
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === todo.id ? { ...t, completed: !t.completed } : t
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao completar tarefa: ", error);
+    }
   };
 
   const editTodo = async (todo) => {
@@ -120,8 +126,8 @@ function App() {
             filter === "All"
               ? true
               : filter === "Completed"
-              ? todo.isCompleted
-              : !todo.isCompleted
+              ? todo.completed
+              : !todo.completed
           )
           .filter((todo) =>
             todo.title.toLowerCase().includes(search.toLowerCase())
@@ -129,11 +135,17 @@ function App() {
           .sort((a, b) =>
             sort === "Asc"
               ? a.title.localeCompare(b.title)
-              : b.title.localeCompare(a.title)
+              : sort === "Desc"
+              ? b.title.localeCompare(a.title)
+              : sort === "CreatedDate"
+              ? new Date(a.createdAt) - new Date(b.createdAt)
+              : new Date(a.expiryDate) - new Date(b.expiryDate)
           )
 
           .filter((todo) =>
-            filterCategory === "All" ? true : todo.category === filterCategory
+            filterCategory === "All"
+              ? true
+              : todo.categoriaNome === filterCategory
           )
 
           .map((todo) => (
@@ -141,7 +153,7 @@ function App() {
               key={todo.id}
               todo={todo}
               removeTodo={removeTodo}
-              completeTodo={completeTodo}
+              completeTodo={handleComplete}
               editTodo={editTodo}
             />
           ))}
