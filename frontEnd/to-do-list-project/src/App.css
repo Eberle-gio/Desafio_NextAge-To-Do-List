@@ -1,10 +1,10 @@
 :root {
-  --color-primary: #0a1763;
+  --color-primary: #222e42;
   --color-secondary: #e7e4e4;
   --color-white: #ffffff;
   --color-dark-text: #333;
   --color-light-bg: #f5f5f5;
-  --color-border: #555;
+  --color-border: #a8a1a1;
   --color-completed: #2bc72b;
   --color-remove: #d9534f;
   --color-input-border: #d1cdcd;
@@ -12,7 +12,7 @@
 
 body {
   font-family: Arial;
-  background-color: var(--color-primary);
+  background-color:var(--color-primary);
   padding: 30px;
   color: var(--color-dark-text);
 }
@@ -25,12 +25,20 @@ body {
   border-radius: 10px;
 }
 
+select{
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1.4em;
+  cursor: pointer;
+}
+
 h1 {
   text-align: center;
 }
 
-.todo-form h2{
-  color: var(--color-light-bg);
+.create-tasks {
+  color: #c9c7c7;
 }
 
 h2 {
@@ -50,7 +58,7 @@ button {
   color: var(--color-light-bg);
   padding: 5px 10px;
   border: none;
-  border-radius: 3px;
+  border-radius: 7px;
   cursor: pointer;
   opacity: 0.8;
   transition: 0.3s;
@@ -65,7 +73,6 @@ button:hover {
 .todo-list {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-border);
 }
 
 .todo {
@@ -81,21 +88,40 @@ button:hover {
 
 .completed {
   background-color: var(--color-completed);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path fill='%23fff' d='M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z'/></svg>");
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><path fill='%23fff' d='M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z'/></svg>");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1.3em;
   width: 24px;
   height: 24px;
   box-shadow: 0 0 3px #176617;
+}
 
+.completed:hover {
+  transform: scale(1.2); /* efeito de zoom ao passar o mouse */
 }
 
 .remove {
   background-color: var(--color-remove);
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 11v6'/%3E%3Cpath d='M14 11v6'/%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6'/%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.3em;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 3px #701818;
+
+
 }
-.editar{
+.edit{
   background-color: rgb(216, 158, 49);
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-pencil-icon lucide-pencil'><path d='M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z'/><path d='m15 5 4 4'/></svg>");
+  background-position: center;
+  background-repeat: no-repeat ;
+  background-size: 1.3em;
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 3px #c2a31a;
 
 }
 
@@ -108,14 +134,75 @@ input, select {
   padding: 5px;
   margin-bottom: 10px;
   border: 1px solid var(--color-input-border);
-  border-radius: 3px;
+  border-radius: 7px;
   width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.icons{
+  display: flex;
+  flex-direction:row;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  
+}
+.icons div{
+  margin-left: auto;
+}
+
+.plus-button{
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-color: var(--color-secondary);
+  background-position: center;
+  background-size: 2em;
+  width: 24px;
+  height: 24px;
+}
+
+.plus-button:hover {
+  transform: scale(1.2); /* efeito de zoom ao passar o mouse */
+}
+
+.Search-button{
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-search-icon lucide-search'%3E%3Cpath d='m21 21-4.34-4.34'/%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-color: var(--color-secondary);
+  background-position: center;
+  background-size: 1.5em;
+  width: 24px;
+  height: 24px;
+  
+
+}
+
+.Search-button:hover {
+  transform: scale(1.2); /* efeito de zoom ao passar o mouse */
+}
+
+.filter-button{
+  background-image: url("data:image/svg+xml;utf-8, <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 18h4'/%3E%3Cpath d='M11 6H3'/%3E%3Cpath d='M15 6h6'/%3E%3Cpath d='M18 9V3'/%3E%3Cpath d='M7 12h8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: var(--color-secondary);
+  background-size: 1.5em;
+  width: 24px;
+  height: 24px;
+}
+
+.filter-button:hover {
+  transform: scale(1.2); /* efeito de zoom ao passar o mouse */
 }
 
 .filter, .search {
   border-radius: 1px solid var(--color-border);
   margin-bottom: 20px;
   padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-input-border);
+  
 }
 
 .filter-options {

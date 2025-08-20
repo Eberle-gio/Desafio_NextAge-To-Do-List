@@ -47,7 +47,7 @@ public class Task {
     private LocalDate completedAt;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable = true, updatable = true, name = "expiry date")
+    @Column(nullable = false, updatable = true, name = "expiry date")
     private LocalDate expiryDate;
 
     public LocalDate getExpiryDate() {

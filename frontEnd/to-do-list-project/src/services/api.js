@@ -20,10 +20,10 @@ export const createTodo = async (todo) => {
 };
 
 export const updateTodo = async (id, todo) => {
-  const response = await api.put(`/api/tasks${id}`, todo);
+  const response = await api.put(`/api/tasks/${id}`, todo);
   return response.data;
 };
 
 export const deleteTodo = async (id) => {
-  await api.delete(`/api/tasks${id}`);
+  await api.delete(`/api/tasks/${id}`);
 };

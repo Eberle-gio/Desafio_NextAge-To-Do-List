@@ -5,7 +5,12 @@ import Search from "./components/Search.jsx";
 import TodoForm from "./components/TodoForm.jsx";
 import Todos from "./components/Todos.jsx";
 import Modal from "./components/modal/Modal.jsx";
-import { createTodo, fectchTodos } from "./services/api.js";
+import {
+  createTodo,
+  deleteTodo,
+  fectchTodos,
+  updateTodo,
+} from "./services/api.js";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -66,23 +71,37 @@ function App() {
     setTodos(newTodos);
   };
 
+  const editTodo = async (todo) => {
+    try {
+      const updatedTodo = await updateTodo(todo.id, todo);
+      setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  };
+
   return (
     <div className="app">
       <h1>Lista de Tarefas</h1>
-      <div>
+      <div className="icons">
         <button
           className="filter-button"
           onClick={() => setShowFilter((prev) => !prev)}
-        >
-          🔃
-        </button>
+        ></button>
 
         <button
           className="Search-button"
           onClick={() => setShowSearch((prev) => !prev)}
-        >
-          🔍
-        </button>
+        ></button>
+
+        <div>
+          <button className="plus-button" onClick={openModal}></button>
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              <TodoForm addTodo={addTodo} onClose={closeModal} />
+            </Modal>
+          )}
+        </div>
       </div>
       {showSearch && <Search search={search} setSearch={setSearch} />}
       {showFilter && (
@@ -123,15 +142,10 @@ function App() {
               todo={todo}
               removeTodo={removeTodo}
               completeTodo={completeTodo}
+              editTodo={editTodo}
             />
           ))}
       </div>
-      <button onClick={openModal}>+</button>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <TodoForm addTodo={addTodo} onClose={closeModal} />
-        </Modal>
-      )}
     </div>
   );
 }

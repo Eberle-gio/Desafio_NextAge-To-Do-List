@@ -44,6 +44,7 @@ public class TaskService {
                     task.setDescription(dto.getDescription());
                     task.setCompleted(dto.isCompleted());
                     task.setUpdatedAt(LocalDate.now());
+                    task.setExpiryDate(dto.getExpiryDate());
 
                     if (dto.getCategoriaId() != null) {
                         var categoria = categoriaRepository.findById(dto.getCategoriaId())

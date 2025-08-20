@@ -21,7 +21,7 @@ export const Filter = ({
         <div>
           <p>Ordem alfabética</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="">Selecione uma Ordem</option>
+            <option value="">Selecionar</option>
             <option value="Asc">A-Z</option>
             <option value="Desc">Z-A</option>
           </select>

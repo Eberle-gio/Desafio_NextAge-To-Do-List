@@ -19,32 +19,48 @@ export default function CreateTodo({ addTodo, onClose }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Descrição"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="date"
-        value={expiryDate}
-        onChange={(e) => setExpiryDate(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Categoria"
-        value={categoriaId}
-        onChange={(e) => setCategoriaId(Number(e.target.value))}
-      />
-      <button type="submit">Criar</button>
-    </form>
+    <div
+      className="create-tasks
+    "
+    >
+      <h1>Criar Tarefa</h1>
+      <form onSubmit={handleSubmit}>
+        <p>Informe um título</p>
+        <input
+          type="text"
+          placeholder="Título"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+
+        <p>Insira uma descrição</p>
+        <input
+          type="text"
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <p>Informe a data de vencimento</p>
+        <input
+          type="date"
+          value={expiryDate}
+          onChange={(e) => setExpiryDate(e.target.value)}
+        />
+        <p>Selecione uma categoria</p>
+
+        <select
+          value={categoriaId}
+          onChange={(e) => setCategoriaId(Number(e.target.value))}
+        >
+          <option value="">Categorias</option>
+          <option value={2}>Estudos</option>
+          <option value={3}>Lazer</option>
+          <option value={1}>Trabalho</option>
+        </select>
+        <button type="submit">Criar</button>
+      </form>
+    </div>
   );
 }
