@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Modal from "./modal/Modal";
-import UpdateTodo from "./updateTodo";
+import Modal from "../modal/Modal";
+import UpdateTodo from "./UpdateTodo";
 
 export const Todos = ({ todo, removeTodo, completeTodo, editTodo }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -68,7 +68,9 @@ export const Todos = ({ todo, removeTodo, completeTodo, editTodo }) => {
               className="modal-content-remove"
               onClick={(e) => e.stopPropagation()} // impede fechar ao clicar dentro
             >
-              <p>Tem certeza que deseja excluir esta tarefa?</p>
+              <p>
+                Tem certeza que deseja <strong>excluir</strong> esta tarefa?
+              </p>
               <button onClick={handleConfirmDelete}>Sim</button>
               <button onClick={handleCancelDelete}>Não</button>
             </div>
