@@ -1,8 +1,52 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createApi, fetchTodos, registerUser } from "../services/api";
 import styles from "./LoginPage.module.css"; // nome correto
 
-const LoginPage = () => {
+const LoginPage = ({ setApi }) => {
   const [isRegister, setIsRegister] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassorwd] = useState("");
+  const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem");
+      return;
+    }
+
+    try {
+      await registerUser(name, email, password);
+      setIsRegister(false); // volta pro login
+      setEmail("");
+      setPassorwd("");
+    } catch (error) {
+      console.error("Register error:", error);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const apiInstance = createApi(email, password);
+      await fetchTodos(apiInstance); // testa autenticação
+
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Falha ao fazer login");
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -11,13 +55,15 @@ const LoginPage = () => {
           {!isRegister ? (
             <>
               <h2>Login</h2>
-              <form>
+              <form onSubmit={handleLogin}>
                 <div>
                   <p>Digite seu email</p>
                   <input
                     type="email"
                     name="email"
+                    value={email}
                     placeholder="Digite seu email"
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -26,7 +72,9 @@ const LoginPage = () => {
                   <input
                     type="password"
                     name="senha"
+                    value={password}
                     placeholder="Digite sua senha"
+                    onChange={(e) => setPassorwd(e.target.value)}
                     required
                   />
                 </div>
@@ -55,13 +103,15 @@ const LoginPage = () => {
           ) : (
             <>
               <h2>Cadastro</h2>
-              <form>
+              <form onSubmit={handleRegister}>
                 <div>
                   <p>Digite seu nome</p>
                   <input
                     type="text"
                     name="nome"
                     placeholder="Digite seu nome completo"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                   />
                 </div>
@@ -71,6 +121,8 @@ const LoginPage = () => {
                     type="email"
                     name="email"
                     placeholder="Digite seu email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -80,6 +132,8 @@ const LoginPage = () => {
                     type="password"
                     name="senha"
                     placeholder="Digite sua senha"
+                    value={password}
+                    onChange={(e) => setPassorwd(e.target.value)}
                     required
                   />
                 </div>
@@ -89,6 +143,8 @@ const LoginPage = () => {
                     type="password"
                     name="confirmSenha"
                     placeholder="Repita sua senha"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
                 </div>
