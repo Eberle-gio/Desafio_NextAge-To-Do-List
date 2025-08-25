@@ -13,13 +13,15 @@ public class TaskDTO {
     private LocalDate expiryDate;
     private String categoriaNome;
     private Long categoriaId; // Referência à categoria
+    private Long userId;
+    private String userEmail;
 
     public TaskDTO() {
     }
 
     public TaskDTO(Long id, String title, String description, boolean completed,
             LocalDate createdAt, LocalDate updatedAt, LocalDate completedAt, Long categoriaId, String categoriaNome,
-            LocalDate expiryDate) {
+            LocalDate expiryDate, Long userId, String userEmail) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -30,6 +32,8 @@ public class TaskDTO {
         this.expiryDate = expiryDate;
         this.categoriaId = categoriaId;
         this.categoriaNome = categoriaNome;
+        this.userId = userId;
+        this.userEmail = userEmail;
     }
 
     // Getters e Setters
@@ -111,6 +115,22 @@ public class TaskDTO {
 
     public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
 }

@@ -27,7 +27,6 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!api) return; // <-- previne chamada antes do login
       try {
         const data = await fetchTodos(api);
         setTodos(data);
@@ -37,7 +36,7 @@ function App() {
     };
 
     fetchData();
-  }, [api]);
+  }, []);
 
   const [todos, setTodos] = useState([]);
 

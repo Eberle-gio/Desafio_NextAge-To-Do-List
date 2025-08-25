@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LoginPage setApi={setApi} />} />
-        <Route path="/" element={<HomePage api={api} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
   );

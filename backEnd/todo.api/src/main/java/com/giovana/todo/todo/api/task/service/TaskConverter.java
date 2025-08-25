@@ -3,6 +3,7 @@ package com.giovana.todo.todo.api.task.service;
 import com.giovana.todo.todo.api.category.model.Categoria;
 import com.giovana.todo.todo.api.task.dto.TaskDTO;
 import com.giovana.todo.todo.api.task.model.Task;
+import com.giovana.todo.todo.api.users.model.User;
 
 public class TaskConverter {
     // Converte Task -> TaskDTO
@@ -20,11 +21,13 @@ public class TaskConverter {
                 task.getCompletedAt(),
                 task.getCategoria() != null ? task.getCategoria().getId() : null,
                 task.getCategoria() != null ? task.getCategoria().getNome() : null,
-                task.getExpiryDate());
+                task.getExpiryDate(),
+                task.getUser().getId(),
+                task.getUser().getEmail());
     }
 
     // Converte TaskDTO -> Task, recebendo a categoria correspondente
-    public static Task toEntity(TaskDTO dto, Categoria categoria) {
+    public static Task toEntity(TaskDTO dto, Categoria categoria, User user) {
         if (dto == null)
             return null;
 
@@ -38,6 +41,7 @@ public class TaskConverter {
         task.setUpdatedAt(dto.getUpdatedAt());
         task.setCompletedAt(dto.getCompletedAt());
         task.setCategoria(categoria);
+        task.setUser(user);
 
         return task;
     }

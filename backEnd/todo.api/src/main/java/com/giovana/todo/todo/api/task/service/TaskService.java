@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.giovana.todo.todo.api.category.model.Categoria;
 import com.giovana.todo.todo.api.category.repository.CategoriaRepository;
 import com.giovana.todo.todo.api.task.dto.TaskDTO;
 import com.giovana.todo.todo.api.task.model.Task;
 import com.giovana.todo.todo.api.task.repository.TaskRepository;
+import com.giovana.todo.todo.api.users.model.User;
 
 @Service
 public class TaskService {
@@ -29,17 +31,30 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
-    public TaskDTO createTask(TaskDTO dto) {
-        var categoria = categoriaRepository.findById(dto.getCategoriaId())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-        Task task = TaskConverter.toEntity(dto, categoria);
+    public List<TaskDTO> getTaskForUser(User user) {
+        return taskRepository.findByUser(user).stream().map(TaskConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public TaskDTO createTaskForUser(TaskDTO dto, User user) {
+        Categoria categoria = null;
+        if (dto.getCategoriaId() != null) {
+            categoria = categoriaRepository.findById(dto.getCategoriaId())
+                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        }
+        Task task = TaskConverter.toEntity(dto, categoria, user);
+        task.setCreatedAt(LocalDate.now());
+        task.setUpdatedAt(null);
         Task savedTask = taskRepository.save(task);
         return TaskConverter.toDTO(savedTask);
     }
 
-    public TaskDTO updateTask(Long id, TaskDTO dto) {
+    public TaskDTO updateTask(Long id, TaskDTO dto, User user) {
         return taskRepository.findById(id)
                 .map(task -> {
+                    if (!task.getUser().getId().equals(user.getId())) {
+                        throw new RuntimeException("Não autorizado");
+                    }
                     task.setTitle(dto.getTitle());
                     task.setDescription(dto.getDescription());
                     task.setCompleted(dto.isCompleted());
@@ -62,9 +77,10 @@ public class TaskService {
                 }).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
     }
 
-    public void deleteTask(Long id) {
-        if (!taskRepository.existsById(id)) {
-            throw new RuntimeException("Task não encontrada");
+    public void deleteTask(Long id, User user) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+        if (!task.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Não autorizado");
         }
         taskRepository.deleteById(id);
     }
